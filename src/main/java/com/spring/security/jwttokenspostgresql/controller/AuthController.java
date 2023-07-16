@@ -37,4 +37,18 @@ public class AuthController {
 
         return ResponseEntity.ok(jwtAuthResponse);
     }
+
+    //Forgot Password
+    @PostMapping("/forgot-password")
+    public ResponseEntity<?> forgotPassword(@RequestParam("email") String email) {
+        authService.initiatePasswordReset(email);
+        return ResponseEntity.ok("Password reset initiated");
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<?> resetPassword(@RequestParam("resetToken") String resetToken,
+                                           @RequestParam("newPassword") String newPassword) {
+        authService.resetPassword(resetToken, newPassword);
+        return ResponseEntity.ok("Password reset successfully");
+    }
 }
